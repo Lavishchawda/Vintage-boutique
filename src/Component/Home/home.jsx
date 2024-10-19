@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import FeaturedProducts from '../FeaturedProducts/FeaturedProducts'; // Importing the FeaturedProducts component
+import heroImage from '../../assets/photos/img1.jpg';
 
 // Sample product data to pass to the FeaturedProducts component
 const products = [
@@ -7,7 +8,7 @@ const products = [
     name: 'Vintage Jacket',
     description: 'Stylish vintage jacket perfect for any occasion.',
     price: '99.99',
-    image: '/path-to-product1.jpg',
+    image: '/vintage-Boutique/src/assets/photos/img2.jpg',
   },
   {
     name: 'Retro Sunglasses',
@@ -24,26 +25,46 @@ const products = [
 ];
 
 const Home = () => {
+  // Create a ref for the featured section
+  const featuredRef = useRef(null);
+
+  // Scroll to the featured section when the arrow is clicked
+  const scrollToFeatured = () => {
+    if (featuredRef.current) {
+      featuredRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="home-container bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <section className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('/path-to-your-image.jpg')" }}>
-        <div className="flex items-center justify-center h-full bg-black bg-opacity-50">
+      <section 
+        className="relative bg-cover bg-center h-screen" 
+        style={{ backgroundImage: `url(${heroImage})` }}
+      >
+        {/* Glass effect overlay */}
+        <div className="absolute inset-0 bg-white bg-opacity-20 backdrop-blur"></div>
+
+        <div className="relative flex flex-col justify-center items-center h-full bg-black bg-opacity-50 px-4">
           <div className="text-center text-white">
-            <h1 className="text-4xl font-bold">Welcome to Vintage Boutique</h1>
-            <p className="mt-4 text-lg">Discover unique styles and the latest trends.</p>
-            <a href="/shop" className="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-800 text-white rounded-md">Shop Now</a>
+            <h1 className="text-4xl font-extrabold mb-4 text-amber-400 drop-shadow">Welcome to Vintage Boutique</h1>
+            <p className="mb-8 text-lg">Discover unique styles and the latest trends.</p>
+            <a href="/shop" className="px-6 py-3 bg-blue-600 hover:bg-blue-800 text-white rounded-md">Shop Now</a>
           </div>
+        </div>
+
+        {/* Down Arrow */}
+        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 cursor-pointer" onClick={scrollToFeatured}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white animate-bounce" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 15a1 1 0 01-.707-.293l-5-5a1 1 0 011.414-1.414L10 12.586l4.293-4.293a1 1 0 011.414 1.414l-5 5A1 1 0 0110 15z" clipRule="evenodd" />
+          </svg>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="container mx-auto py-12">
+      {/* Featured Products Section */}
+      <section ref={featuredRef} className="container mx-auto py-12">
         <h2 className="text-3xl font-bold text-center mb-8">Featured Products</h2>
-
-        {/* FeaturedProducts Component */}
         <FeaturedProducts products={products} />
-
       </section>
 
       {/* Testimonials */}
