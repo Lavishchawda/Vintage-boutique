@@ -1,19 +1,17 @@
 import React from 'react';
 
 const FeaturedProducts = ({ products }) => {
-
   // Function to create the WhatsApp link with your number
   const getWhatsAppLink = (product) => {
-    const message = `Check out this product: *${product.name}*\n\n${product.description}\nPrice: $${product.price}`;
-    // Replace '8237200591' with your WhatsApp number
-    return `https://wa.me/+91-8275319252?text=${encodeURIComponent(message)}`;
+    const phoneNumber = '8237200591'; // Your WhatsApp number in international format (without +)
+    const message = `Check out this product: *${product.name}*\n\n${product.description}\nPrice: ₹${product.price}`;
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   };
 
   // Function to create the email link with your email address
   const getEmailLink = (product) => {
     const subject = `Inquiry about ${product.name}`;
-    const body = `Hello,\n\nI am interested in the following product:\n\nName: ${product.name}\nDescription: ${product.description}\nPrice: $${product.price}\n\nPlease provide more details.`;
-    // Replace 'lavishchawda1@gmail.com' with your email address
+    const body = `Hello,\n\nI am interested in the following product:\n\nName: ${product.name}\nDescription: ${product.description}\nPrice: ₹${product.price}\n\nPlease provide more details.`;
     return `mailto:lavishchawda1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
@@ -29,7 +27,7 @@ const FeaturedProducts = ({ products }) => {
             />
             <h3 className="text-lg font-bold">{product.name}</h3>
             <p className="text-gray-500">{product.description}</p>
-            <p className="mt-2 text-blue-600 font-semibold">${product.price}</p>
+            <p className="mt-2 text-blue-600 font-semibold">₹{product.price}</p>
 
             {/* Buttons for Email and WhatsApp */}
             <div className="mt-4 flex space-x-4">

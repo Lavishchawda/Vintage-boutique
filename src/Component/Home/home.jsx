@@ -1,26 +1,31 @@
 import React, { useRef } from 'react';
 import FeaturedProducts from '../FeaturedProducts/FeaturedProducts'; // Importing the FeaturedProducts component
-import heroImage from '../../assets/photos/img1.jpg';
+import heroImage from '../../assets/photos/img1.jpg'; // Imported image
 
-// Sample product data to pass to the FeaturedProducts component
+// Importing product images properly
+import productImage1 from '../../assets/photos/img2.jpg';
+import productImage2 from '../../assets/photos/img2.jpg';
+import productImage3 from '../../assets/photos/img2.jpg';
+
+// Sample product data with correct image imports
 const products = [
   {
     name: 'Vintage Jacket',
     description: 'Stylish vintage jacket perfect for any occasion.',
     price: '99.99',
-    image: '/vintage-Boutique/src/assets/photos/img2.jpg',
+    image: productImage1, // Using imported image
   },
   {
     name: 'Retro Sunglasses',
     description: 'Retro-inspired sunglasses for a cool, classic look.',
     price: '49.99',
-    image: '/path-to-product2.jpg',
+    image: productImage2, // Using imported image
   },
   {
     name: 'Leather Handbag',
     description: 'A beautiful handcrafted leather handbag.',
     price: '149.99',
-    image: '/path-to-product3.jpg',
+    image: productImage3, // Using imported image
   },
 ];
 
@@ -38,8 +43,8 @@ const Home = () => {
   return (
     <div className="home-container bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <section 
-        className="relative bg-cover bg-center h-screen" 
+      <section
+        className="relative bg-cover bg-center h-screen"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         {/* Glass effect overlay */}
@@ -49,7 +54,6 @@ const Home = () => {
           <div className="text-center text-white">
             <h1 className="text-4xl font-extrabold mb-4 text-amber-400 drop-shadow">Welcome to Vintage Boutique</h1>
             <p className="mb-8 text-lg">Discover unique styles and the latest trends.</p>
-            <a href="/shop" className="px-6 py-3 bg-blue-600 hover:bg-blue-800 text-white rounded-md">Shop Now</a>
           </div>
         </div>
 
