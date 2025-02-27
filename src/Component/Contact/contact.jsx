@@ -1,59 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact = () => {
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get("user_name"),
+      email: formData.get("user_email"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatusMessage("Message sent successfully!");
+      } else {
+        setStatusMessage("An error occurred, please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatusMessage("An error occurred, please try again.");
+    }
+  };
+
   return (
-    <div className="contact-container bg-gray-100 min-h-screen flex flex-col justify-between">
+    <div className="contact-container bg-gray-100 min-h-screen flex flex-col justify-between  bg-gradient-to-b from-amber-50 to-orange-50">
       <div className="container mx-auto px-6 lg:px-12 py-12 flex-grow">
         {/* Contact Heading */}
         <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Contact Form */}
-          <div className="w-full lg:w-1/2">
-            <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Your Name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows="5"
-                  className="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Write your message..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-
           {/* Contact Info */}
           <div className="w-full lg:w-1/2">
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
@@ -61,7 +45,7 @@ const Contact = () => {
               Feel free to reach out to us for any inquiries or support. We’re always happy to hear from you!
             </p>
             <p className="text-gray-700">
-              <strong>Email:</strong> info@vintageboutique.com
+              <strong>Email:</strong> lavch113@gmail.com
             </p>
             <p className="text-gray-700">
               <strong>Phone:</strong> +1 234 567 890
@@ -98,7 +82,7 @@ const Contact = () => {
           </div>
           <div className="mb-4">
             <h4 className="text-lg font-semibold">Contact Us</h4>
-            <p>Email: info@vintageboutique.com</p>
+            <p>Email: lavch113@gmail.com</p>
             <p>Phone: +1 234 567 890</p>
           </div>
           <div className="flex justify-center space-x-6">

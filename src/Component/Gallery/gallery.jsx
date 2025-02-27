@@ -1,64 +1,60 @@
-import React from 'react';
-import img2 from '../../assets/photos/img2.jpg'
+import React, { useState, useEffect } from 'react';
+import img2 from '../../assets/photos/img2.jpg';
+import FeaturedProducts from '../FeaturedProducts/FeaturedProducts';
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Gallery = () => {
-  // Example of product categories with associated images
-  const categories = {
-    "New Arrivals": [
-       img2,
-       img2,
-       img2,
-       img2,
-       img2,
-     
-    ],
-    "Best Sellers": [
-      img2,
-      img2,
-      img2,
-      img2,
-      img2,
-    ],
-    "On Sale": [
-      img2,
-      img2,
-      img2,
-      img2,
-      img2,
-    ],
-    "Featured Products": [
-      img2,
-      img2,
-      img2,
-      img2,
-      img2,
-    ]
-  };
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration in milliseconds
+      offset: 100,    // Distance before the animation triggers
+      once: true,     // Animation happens only once
+    });
+  }, []);
+
+  const allProducts = [
+    { name: 'Vintage Handbag', category: 'Bags', description: 'Classic leather handbag', price: 2499, image: img2 },
+    { name: 'Retro Sunglasses', category: 'Accessories', description: 'Stylish 80s sunglasses', price: 1299, image: img2 },
+    { name: 'Antique Watch', category: 'Accessories', description: 'Gold-plated vintage watch', price: 4999, image: img2 },
+    { name: 'Classic Hat', category: 'Clothing', description: 'Timeless woolen hat', price: 999, image: img2 },
+    { name: 'Vintage Dress', category: 'Clothing', description: 'Elegant floral dress', price: 2999, image: img2 },
+    { name: 'Leather Boots', category: 'Shoes', description: 'Handcrafted vintage boots', price: 3999, image: img2 },
+    { name: 'Pearl Necklace', category: 'Jewelry', description: 'Classic pearl necklace', price: 5999, image: img2 },
+    { name: 'Retro Camera', category: 'Accessories', description: 'Vintage-style camera', price: 6999, image: img2 }
+  ];
+
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories = ['All', 'Bags', 'Accessories', 'Clothing', 'Shoes', 'Jewelry'];
+
+  const filteredProducts = selectedCategory === 'All' 
+    ? allProducts 
+    : allProducts.filter(product => product.category === selectedCategory);
 
   return (
-    <div className="gallery-container bg-gray-100 min-h-screen flex flex-col justify-between">
+    <div className="gallery-container bg-gray-100 min-h-screen flex flex-col justify-between  bg-gradient-to-b from-amber-50 to-orange-50">
       <div className="container mx-auto px-6 lg:px-12 py-12 flex-grow">
         <h2 className="text-3xl font-bold text-center mb-8">Gallery</h2>
+        
+        {/* Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-6">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-lg text-white font-semibold transition-all duration-300 ${selectedCategory === category ? 'bg-orange-500' : 'bg-gray-400 hover:bg-gray-500'}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
 
-        {Object.keys(categories).map((categoryName, index) => (
-          <div key={index} className="category-section mb-12">
-            {/* Category Title */}
-            <h3 className="text-2xl font-semibold text-center mb-6">{categoryName}</h3>
-
-            {/* Grid of Products */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
-              {categories[categoryName].map((image, imgIndex) => (
-                <div key={imgIndex} className="gallery-item bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <img 
-                    src={image} 
-                    alt={`${categoryName} ${imgIndex}`} 
-                    className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4"
-                  />
-                  <h4 className="text-lg font-semibold text-center">{`Product ${imgIndex + 1}`}</h4>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+        {/* Filtered Products */}
+        <div>
+          <FeaturedProducts products={filteredProducts} />
+        </div>
       </div>
 
       {/* Footer Section */}
