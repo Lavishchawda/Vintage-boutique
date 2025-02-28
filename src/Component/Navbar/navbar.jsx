@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FiMenu, FiX } from 'react-icons/fi';
 import logo from '../../assets/photos/logo5.jpeg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -17,10 +17,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Toggle menu function
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Menu items array
   const menuItems = ['Home', 'About', 'Gallery', 'Contact'];
 
   return (
@@ -62,21 +60,34 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-gray-700 hover:text-orange-500 transition-colors"
+          className="md:hidden text-gray-700 hover:text-orange-500 transition-colors text-2xl"
           aria-label="Toggle navigation menu"
         >
-          {/* Hamburger icon remains same */}
+          {isOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
-      {/* Mobile Menu - Single instance */}
+      {/* Mobile Menu */}
       <motion.div
         initial={{ x: '100%' }}
         animate={{ x: isOpen ? 0 : '100%' }}
         transition={{ type: 'tween' }}
-        className="md:hidden fixed top-0 right-0 w-64 h-full bg-white shadow-xl z-50"
+        className="md:hidden fixed top-0 right-0 w-64 h-full bg-white shadow-xl z-50 flex flex-col p-6 space-y-4"
       >
-        {/* Mobile menu content remains same */}
+        {menuItems.map((item, index) => (
+          <NavLink
+            key={index}
+            to={`/${item.toLowerCase()}`}
+            onClick={() => setIsOpen(false)}
+            className={({ isActive }) => 
+              `text-gray-700 hover:text-orange-500 transition-colors duration-200 text-lg ${
+                isActive ? 'text-orange-500 font-semibold' : ''
+              }`
+            }
+          >
+            {item}
+          </NavLink>
+        ))}
       </motion.div>
     </nav>
   );

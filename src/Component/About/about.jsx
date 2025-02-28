@@ -1,7 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import vintageBackground from '../../assets/photos/img2.jpg';
-import logo from '../../assets/photos/logo5.jpeg'
+import logo from '../../assets/photos/logo5.jpeg';
+import Footer from "../Footer/footer";
 
 const timeline = [
   { year: '2010', text: 'We started as a small boutique with a love for timeless fashion.' },
@@ -11,22 +12,21 @@ const timeline = [
 
 const About = () => {
   return (
-    <div className="about-container  py-16  bg-gradient-to-b from-amber-50 to-orange-50">
-     {/* Hero Section */}
-<div className="relative bg-cover bg-center py-40 text-center text-white" style={{ backgroundImage: `url(${vintageBackground})` }}>
-  <div className="absolute inset-0 bg-black bg-opacity-75"></div> {/* Dark Overlay */}
-  <motion.h1 
-    className="relative text-5xl font-bold px-6 py-3 rounded-lg inline-block"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-  >
-    About Vintage Boutique
-  </motion.h1>
-</div>
+    <div className="about-container py-16 bg-gradient-to-b from-amber-50 to-orange-50">
+      {/* Hero Section */}
+      <div className="relative bg-cover bg-center py-40 text-center text-white" style={{ backgroundImage: `url(${vintageBackground})` }}>
+        <div className="absolute inset-0 bg-black bg-opacity-75"></div> {/* Dark Overlay */}
+        <motion.h1 
+          className="relative text-5xl font-bold px-6 py-3 rounded-lg inline-block"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          About Vintage Boutique
+        </motion.h1>
+      </div>
 
-
-      <div className="container mx-auto px-6 lg:px-12 text-center ">
+      <div className="container mx-auto px-6 lg:px-12 text-center">
         {/* Our Mission */}
         <section className="mt-16 text-center mb-12 border-b pb-8">
           <motion.h2 
@@ -80,12 +80,8 @@ const About = () => {
       </div>
 
       {/* Footer Section */}
-      <footer className="bg-gray-800 text-white py-8 mt-16">
-        <div className="container mx-auto text-center">
-          <h3 className="text-2xl font-bold">Vintage Boutique</h3>
-          <p>Explore our unique collection of vintage items.</p>
-        </div>
-      </footer>
+      <Footer />
+    
     </div>
   );
 };

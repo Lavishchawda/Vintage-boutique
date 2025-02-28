@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from "../Footer/footer";
 
 const Contact = () => {
   const [statusMessage, setStatusMessage] = useState("");
@@ -72,32 +73,9 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer Section */}
-      <footer className="bg-gray-800 text-white py-8">
-        <div className="container mx-auto text-center">
-          <div className="mb-4">
-            <h3 className="text-2xl font-bold">Vintage Boutique</h3>
-            <p>Explore our unique collection of vintage items.</p>
-          </div>
-          <div className="mb-4">
-            <h4 className="text-lg font-semibold">Contact Us</h4>
-            <p>Email: lavch113@gmail.com</p>
-            <p>Phone: +1 234 567 890</p>
-          </div>
-          <div className="flex justify-center space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white">
-              <i className="fab fa-facebook-f"></i> Facebook
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              <i className="fab fa-twitter"></i> Twitter
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              <i className="fab fa-instagram"></i> Instagram
-            </a>
-          </div>
-        </div>
-      </footer>
+     {/* Footer Section */}
+     <Footer />
+     
     </div>
   );
 };
